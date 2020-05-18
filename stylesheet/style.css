@@ -1,0 +1,62 @@
+
+
+.menuBar{
+  padding: 0 0 0 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  /* align-content: center; */
+}
+
+#homeLogo{
+  height: 5vmin;
+  
+}
+
+.search{
+  margin-left: auto;
+  margin-right: auto;
+  /* position: absolute; */
+  /* display: flex;
+  justify-content: center; */
+
+}
+  
+
+.menuIcon{
+  height: 3vmin;
+  }
+  
+
+.searchIcon{
+    height: 2vw;
+    
+}
+
+/* main */
+.container{
+  display: block;
+  vertical-align: baseline;
+  
+}
+
+.account{
+  border-radius: 0.75em;
+  border: solid;
+  max-width: 20em;
+  max-height: 40em;
+  margin: 5em auto;
+  /* position: relative; */
+
+}
+
+.accountInfo{
+  display: flex;
+  flex-direction: column;
+}
+
+.accountIMG{
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}

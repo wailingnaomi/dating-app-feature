@@ -1,0 +1,18 @@
+{
+  "name": "be-package",
+  "version": "1.0.0",
+  "description": "package assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "Naomi Cheung",
+  "license": "ISC",
+  "dependencies": {
+    "cuteid": "^0.2.0",
+    "i": "^0.3.6",
+    "nodemon": "^2.0.4",
+    "npm": "^6.14.5",
+    "one-liner-joke": "^1.2.0"
+  }
+}
