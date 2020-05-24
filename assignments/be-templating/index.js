@@ -1,15 +1,17 @@
-const express = require('express');
-const app = express();
+const 
+express = require('express');
+app = express();
 
 // template engine
-const hbs = require('express-handlebars')
+hbs = require('express-handlebars')
 
 // path
-const path = require('path');
+path = require('path');
 
 // change layouts folder name to main, change partials folder name to elements
-app.engine('handlebars', hbs({ defaultLayout: 'main', layoutsDir: path.join(__dirname, 'views/main'), partialsDir:(__dirname, 'views/elements')}));
-app.set('view engine', 'handlebars')
+app
+.engine('handlebars', hbs({ defaultLayout: 'main', layoutsDir: path.join(__dirname, 'views/main'), partialsDir:(__dirname, 'views/elements')}));
+.set('view engine', 'handlebars')
 
 
 //routing, renders index.html as homepage when a GET request is made
