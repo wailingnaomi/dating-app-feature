@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Trail</title>
+    <style>
+        body {
+            height: 300px;
+        }
+
+        .trail {
+            /* className for the trail elements */
+            position: absolute;
+            height: 10px;
+            width: 10px;
+            border-radius: 10px;
+            border: 1px solid red;
+            background: transparent;
+        }
+
+        button {
+            width: 10em;
+            height: 2em;
+            display: block;
+            margin: 0 auto;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Turn on/off</button>
+
+
+    <script>
+        // sla button op in variabele
+        const button = document.querySelector("button");
+
+        let buttonCheck = false;
+        
+        // sla functie op in variabele
+        const event = (event) => {
+            let trail = document.createElement("div");
+                    trail.className = "trail";
+                    trail.style.left = (event.pageX - 20) + "px";
+                    trail.style.top = (event.pageY - 20) + "px";
+                    document.body.appendChild(trail);
+                console.log("hello");
+        }
+
+        //geef button een handler
+        button.addEventListener("click", onclick => {
+           
+            // zet waarde van boolean naar het tegenovergestelde - klasgenoot Brian
+            buttonCheck = !buttonCheck;
+           
+            // als buttoncheck false is voer functie uit
+            if (buttonCheck) {
+                window.addEventListener("mousemove", event); 
+              
+                console.log("on")
+            
+                // als buttoncheck true is doe dan dit
+            } else {
+                window.removeEventListener("mousemove", event);
+
+                console.log("off"); 
+
+            }
+        });
+    </script>
+</body>
