@@ -13,17 +13,27 @@
         <img src="<%=data[userInfo].img%>" alt="profileIMG" class="profileIMG">
         
         <h2 class="username">
-            <a href="/<%= data[userInfo].id %>" class="linkProfile"> <%= data[userInfo].username%> </a> |
+            <a href="/<%= data[userInfo].id%>" class="linkProfile"> <%=data[userInfo].username%>  </a> |
             <%= data[userInfo].age %>
         </h2>
 
         <p class="bio"> <%= data[userInfo].bio %> </p>
+        <div class="interests">
+            <% for (var i = 0; i < data[userInfo].interests.length; i++){ %>            
+                <div class="grid">
+                    <p>
+                        <%= data[userInfo].interests[i]%>
+                    </p>
+                </div>
+             <% } %>
+         </div>
+
 
         <div class="test">
             
             <button class="redirect"> 
                 
-                <img src="images/dislike.png" alt="profile" class="img"  id=dislike data-value="<%= data[userInfo]._id %>" > 
+                <img src="images/dislike.png" alt="profile" class="dislike"  id=dislike data-value="<%= data[userInfo]._id %>" > 
            
             </button>
             

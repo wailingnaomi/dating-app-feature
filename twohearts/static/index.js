@@ -13,7 +13,7 @@ function onremove(ev){
     //console.log "node.dataset.value" om de id te zien
     console.log(node.dataset.value)
 
-    fetch(`/match/${node.dataset.value}`, {method: 'delete'})
+    fetch(`/${node.dataset.value}`, {method: 'delete'})
     .then(onresponse)
     .then(onload)
     .catch(error)
@@ -28,7 +28,7 @@ function onremove(ev){
     }
 
     function onload(){
-     return   window.location.href = '/match'
+     return   window.location.href = '/'
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch

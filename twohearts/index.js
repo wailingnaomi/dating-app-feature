@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const mongo = require ('mongodb')
 
+
 require('dotenv').config()
 
 let db = null
@@ -18,25 +19,22 @@ mongo.MongoClient.connect(url, function(err, client){
 });
 
 
-
 app
 .use(express.static('static'))
 .use(bodyParser.urlencoded({extended:true}))
 .set('view engine', 'ejs')
 .set('views', 'views')
-.get('/', start)
-.get('/match', profiles)
-.delete('/match/:id', remove)
+.get('/', users)
+.delete('/:id', remove)
+.get('/myprofile', myprofile)
+.get('/myprofile/edit', editProfile) // gaat naar edit
+.put('/myprofile', myprofile) // update de edit
 .listen(8000)
 
 
-function start(req, res){
-    res.render('start.ejs')
-}
 
 
-
-function profiles(req, res, next){
+function users(req, res, next){
     db.collection('userdata').find().toArray(done)
 
     function done(err, data) {
@@ -64,4 +62,26 @@ function remove(req, res, next){
         console.log(e);
         res.status(400).send(e)
     }
+}
+
+
+
+
+function myprofile(req, res, next){
+    db.collection('main').find().toArray(done)
+
+    function done(err, data) {
+        if (err){
+            next(err)
+        }else{
+            res.render('myprofile.ejs', {data: data})
+        }
+    }
+}
+
+
+
+
+function editProfile(req, res){
+    res.render('editprofile.ejs')
 }
