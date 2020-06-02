@@ -28,7 +28,7 @@ app
 .delete('/:id', remove)
 .get('/myprofile', myprofile)
 .get('/myprofile/edit', editProfile) // gaat naar edit
-.put('/myprofile', myprofile) // update de edit
+.post('/myprofile', updateProfile) // update de profile
 .listen(8000)
 
 
@@ -79,6 +79,33 @@ function myprofile(req, res, next){
     }
 }
 
+
+function updateProfile(req, res) {
+
+    const itemID = req.params.id;
+
+    db.collection('main').updateOne({"_id": ObjectId(itemID)}, {$set:{name:req.body.name}}, check)   
+
+    function check(err, data){
+        if(err){
+            next(err)
+        }else{
+            res.redirect('/myprofile')
+        }
+    }
+    // try{
+    //     db.collection('main').updateOne({"_id": ObjectId(itemID)}, {$set:{name:req.body.name}})   
+    //     console.log(itemID),
+    //     console.log('updated'),
+    //     res.status(200).send('updated')
+    // } catch(e){
+    //     console.log('failed to update')
+    //     console.log(e);
+    //     res.status(400).send(e)
+    // }
+
+
+}
 
 
 
