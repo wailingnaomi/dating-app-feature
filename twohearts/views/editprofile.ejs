@@ -1,15 +1,16 @@
 <h2>Edit Profile</h2>
 
-<form action="/myprofile" method="POST">
+<form action="/myprofile/:id" method="POST" enctype="multipart/form-data">
     
-    
+    <label>Profile picture <input name=profilepicture type="file" accept="image/.png, image/.jpeg, image/.jpg"></label>
+
     <label>Name <input type="text" name=name> </label>
     
 
-    <!-- <label>Age <input type="text" id=age> </label>
+    <label>Age <input type="text" name=age> </label>
     
 
-    <label>Bio <input type="text" id=bio> </label> -->
+    <label>Bio <input type="text" name=bio> </label>
     
 
     <a href="/myprofile">Cancel</a>

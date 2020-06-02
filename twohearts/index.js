@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mongo = require ('mongodb')
-
+const multer = require('multer')
 
 require('dotenv').config()
 
@@ -18,6 +18,10 @@ mongo.MongoClient.connect(url, function(err, client){
     db = client.db(process.env.DB_NAME)
 });
 
+// A folder where the uploaded files are stored
+var upload = multer ({dest: 'static/uploads/'})
+
+
 
 app
 .use(express.static('static'))
@@ -27,8 +31,8 @@ app
 .get('/', users)
 .delete('/:id', remove)
 .get('/myprofile', myprofile)
-.get('/myprofile/edit', editProfile) // gaat naar edit
-.post('/myprofile', updateProfile) // update de profile
+.get('/myprofile/edit', editProfile)
+.post('/myprofile/:id', upload.single('profilepicture'),updateProfile)
 .listen(8000)
 
 
@@ -46,13 +50,13 @@ function users(req, res, next){
     }
 }
 
-
-
-
+// Class mate helped me to write this function
 function remove(req, res, next){
+    // Get ID of a user
     const itemID = req.params.id;
 
     try{
+        // delete a id from the collection userdata
         db.collection('userdata').deleteOne({"_id": ObjectId(itemID)});
         console.log(itemID);
         console.log('deleted');
@@ -80,31 +84,26 @@ function myprofile(req, res, next){
 }
 
 
-function updateProfile(req, res) {
-
-    const itemID = req.params.id;
-
-    db.collection('main').updateOne({"_id": ObjectId(itemID)}, {$set:{name:req.body.name}}, check)   
-
-    function check(err, data){
-        if(err){
-            next(err)
-        }else{
-            res.redirect('/myprofile')
-        }
+function updateProfile(req, res, next) {
+    try{
+        //https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
+        db.collection('main').updateOne({"_id": ObjectId("5ed56404252bf51450273018")}, 
+        {$set:
+            {
+            img: req.file ? req.file.filename : null,
+            username:req.body.name,
+            age: req.body.age,
+            bio: req.body.bio,
+            }
+        })   
+        console.log('updated'),
+        res.redirect('/myprofile'),
+        res.status(200).send('updated')
+    } catch(e){
+        console.log('failed to update')
+        console.log(e);
+        res.status(400).send(e)
     }
-    // try{
-    //     db.collection('main').updateOne({"_id": ObjectId(itemID)}, {$set:{name:req.body.name}})   
-    //     console.log(itemID),
-    //     console.log('updated'),
-    //     res.status(200).send('updated')
-    // } catch(e){
-    //     console.log('failed to update')
-    //     console.log(e);
-    //     res.status(400).send(e)
-    // }
-
-
 }
 
 
