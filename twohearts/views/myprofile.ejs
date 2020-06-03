@@ -9,16 +9,15 @@
 
 <% for (var i = 0; i < data.length; i++) { %>
 <div class="profileContainer">
-    <img src="<%=data[i].img%>" alt="profileIMG" class="profileIMG">
+    <img src="uploads/<%=data[i].img%>" alt="profileIMG" class="profileIMG">
 
     <h2 class="username"> <%=data[i].username%> | <%= data[i].age %> </h2>
 
     <p class="bio"><%= data[i].bio %> </p>
 
-
     <div class="interestsProfile">
         <% for (var x = 0; x < data[i].interests.length; x++){ %>            
-            <div class="grid">
+            <div class="interestsContainer">
                 <p>
                     <%= data[i].interests[x]%>
                 </p>
@@ -26,8 +25,9 @@
             <%}%> 
      </div>
 
-     <a href="/myprofile/edit">edit info</a>
-
+    <button class="editBTN">
+     <a href="/myprofile/edit" class="edit">edit info</a>
+    </button>
 <% } %>
 
 </div>

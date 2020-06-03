@@ -3,9 +3,11 @@ const app = express()
 const bodyParser = require('body-parser')
 const mongo = require ('mongodb')
 const multer = require('multer')
+const session = require('express-session') // Nog niks gedaan met sessions
 
 require('dotenv').config()
 
+// Connect server with database
 let db = null
 const url = process.env.DB_URL
 const ObjectId = require('mongodb').ObjectID;
@@ -18,9 +20,17 @@ mongo.MongoClient.connect(url, function(err, client){
     db = client.db(process.env.DB_NAME)
 });
 
-// A folder where the uploaded files are stored
-var upload = multer ({dest: 'static/uploads/'})
 
+
+// A folder where the uploaded files are stored
+var uploadFile = multer ({dest: 'static/uploads/'})
+
+// What files should de stored
+const storage = multer.diskStorage({
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + '.jpg');
+	}
+});
 
 
 app
@@ -32,13 +42,15 @@ app
 .delete('/:id', remove)
 .get('/myprofile', myprofile)
 .get('/myprofile/edit', editProfile)
-.post('/myprofile/:id', upload.single('profilepicture'),updateProfile)
+.post('/myprofile/:id', uploadFile.single('profilepicture'),updateProfile)
+.use(notFound)
 .listen(8000)
 
 
 
 
 function users(req, res, next){
+    // Find array in collection userdata and send that to list.ejs
     db.collection('userdata').find().toArray(done)
 
     function done(err, data) {
@@ -58,7 +70,7 @@ function remove(req, res, next){
     try{
         // delete a id from the collection userdata
         db.collection('userdata').deleteOne({"_id": ObjectId(itemID)});
-        console.log(itemID);
+        console.log(itemID); // To check which ID is going to be deleted
         console.log('deleted');
         res.status(200).send('deleted');
     } catch(e){
@@ -88,7 +100,7 @@ function updateProfile(req, res, next) {
     try{
         //https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
         db.collection('main').updateOne({"_id": ObjectId("5ed56404252bf51450273018")}, 
-        {$set:
+        {$set: //To update the values of the form
             {
             img: req.file ? req.file.filename : null,
             username:req.body.name,
@@ -107,7 +119,10 @@ function updateProfile(req, res, next) {
 }
 
 
-
 function editProfile(req, res){
     res.render('editprofile.ejs')
+}
+
+function notFound(req, res){
+    res.status(404).render('notfound.ejs')
 }

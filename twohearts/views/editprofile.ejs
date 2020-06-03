@@ -1,18 +1,29 @@
-<h2>Edit Profile</h2>
+<%- include ('partials/header.ejs') -%>
 
+<title>TwoHearts - my profile</title>
+
+<%- include ('partials/nav.ejs') -%>
+
+<h1>Edit profile</h1>
+<div class="formContainer">
 <form action="/myprofile/:id" method="POST" enctype="multipart/form-data">
     
-    <label>Profile picture <input name=profilepicture type="file" accept="image/.png, image/.jpeg, image/.jpg"></label>
+    <label class="label"> Profile picture </label>
+    <input class="input" id="inputIMG" name=profilepicture type="file" accept="image/*" required>
 
-    <label>Name <input type="text" name=name> </label>
+    <label class="label"> Name </label>
+    <input class="input" type="text" name=name required> 
     
 
-    <label>Age <input type="text" name=age> </label>
+    <label class="label"> Age </label>
+    <input class="input" type="text" name=age required>
     
 
-    <label>Bio <input type="text" name=bio> </label>
-    
+    <label class="label"> Bio  </label>
+    <textarea class="textarea" type="text" name=bio rows="2" cols="50" placeholder="e.g. looking for a travelbuddy"></textarea>
 
-    <a href="/myprofile">Cancel</a>
-    <button type="submit">Update</button>
+    <button class="updateBTN" type="submit">Update</button>
+    <button class="cancelBTN"><a href="/myprofile" class="cancel">Cancel</a></button>
+
 </form>
+</div>

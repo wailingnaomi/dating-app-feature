@@ -1,5 +1,7 @@
 *{
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
 }
 
 /* navigation */
@@ -26,7 +28,6 @@ li{
 /* page title */
 h1{
     color: #484E5D;
-    font-family: 'Poppins', sans-serif;
     text-shadow: 2px 2px #CCD0D7;
     text-align: center;
     margin-top: 1em;
@@ -71,50 +72,42 @@ h1{
 
 .username{
     color: #484E5D;
-    font-family: 'Poppins', sans-serif;
     font-size: 1.2em;
-    /* margin-left: 24px; */
-    /* text-align: center; */
 }
 
 .bio{
-    /* margin-left: 24px; */
-    font-family: 'Poppins', sans-serif;
     font-size: 0.8em;
 }
 
-.test{
+.likeDislike{
     display:flex ;
     justify-content: center ;
     vertical-align: top;
     align-items: center;
-    /* position: relative; */
 }
 
-.redirect{
+.likeDislikeBTN{
     margin: 1em auto 0 auto;
     background-color: transparent;
     border: none;
 }
 
-.dislike, .like{
+.likeDislikeIMG{
     width: 3em;
 }
 
 .interests{
-    /* margin-left: 24px; */
     width: 192px;
 }
 
-.grid{
+.interestsContainer{
    display: inline-grid;
    grid-template-rows: 1fr;
 
 }
 
 
-.grid p{
-    font-family: 'Poppins', sans-serif;
+.interestsContainer p{
     font-size: 0.8em;
     margin: 0 .5em 1em 0;
     border-radius: 5%;
@@ -124,11 +117,7 @@ h1{
 }
 
 
-
-
-
-/* profile css */
-
+/* myprofile css */
 .profileContainer{
     border-radius: 5%;
     background-color: #CCD0D7;
@@ -148,3 +137,70 @@ h1{
 .interestsProfile{
     width: 360px;
 }
+
+.editBTN{
+    width: 100%;
+    background: #484E5D;
+    color: #fff;
+    font-size: 1em;
+    margin-top: 2em;
+}
+
+.edit{
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/* editprofile css */
+.formContainer{
+    display: flex;
+    justify-content: center;
+}
+
+
+.label{
+    display: block;
+    margin: 0 0 0 0;
+
+}
+
+.input{
+    width: 100%;
+    border: 1px solid #484E5D;
+    margin: 0 0 1em 0;
+    padding: 5px;
+}
+
+#inputIMG{
+    border-style: none
+    
+}
+
+.textarea{
+    resize: none;
+    border: 1px solid #484E5D;
+    margin: 0 0 0 0;
+    padding: 5px;
+    width: 100%;
+}
+
+.cancel{
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.updateBTN{
+    margin: 2em 0 2em 0;
+}
+
+.cancelBTN, .updateBTN{
+    width: 100%;
+    background: #484E5D;
+    color: #fff;
+    font-size: 1em;
+    
+}
+
