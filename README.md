@@ -1,5 +1,8 @@
 # Dating-app-feature
-Dit project gaat over een dating feature. Wanneer je op zoek bent naar een match, wil ik zien wat voor interesses die persoon heeft, zodat ik weet of we een match zijn. 
+Dit project gaat over een dating feature. Wanneer ik inlog en op zoek ben naar een match, wil ik zoeken op interesses, zodat ik kan zien wie een mogelijk match is
+
+<img width="1440" alt="Schermafbeelding 2020-06-04 om 21 05 26" src="https://user-images.githubusercontent.com/55541888/83800141-3f4d4800-a6a7-11ea-97e8-9cb432aa1089.png">
+
 
 ## Features
 Op dit moment:
