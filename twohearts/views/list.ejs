@@ -19,15 +19,10 @@
 
         <p class="bio"> <%= data[userInfo].bio %> </p>
 
-        <div class="interests">
-            <% for (var i = 0; i < data[userInfo].interests.length; i++){ %>
-            <div class="interestsContainer">
-                <p>
-                    <%= data[userInfo].interests[i]%>
-                </p>
-            </div>
-            <% } %>
-        </div>
+    
+            <p class="interests"><%= data[userInfo].interests %></p>
+    
+
 
         <div class="likeDislike">
 

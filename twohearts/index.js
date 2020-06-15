@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const mongo = require ('mongodb')
 const multer = require('multer')
-const session = require('express-session') // Nog niks gedaan met sessions
+const session = require('express-session')
 
 require('dotenv').config()
 
@@ -17,7 +17,7 @@ mongo.MongoClient.connect(url, function(err, client){
         throw err
     }
 
-    db = client.db(process.env.DB_NAME)
+    db = client.db(process.env.DB_NAME) 
 });
 
 
@@ -34,36 +34,100 @@ const storage = multer.diskStorage({
 
 
 app
-.use(express.static('static'))
-.use(bodyParser.urlencoded({extended:true}))
 .set('view engine', 'ejs')
 .set('views', 'views')
-.get('/', users)
-.delete('/:id', remove)
-.get('/myprofile', myprofile)
-.get('/myprofile/edit', editProfile)
-.post('/myprofile/:id', uploadFile.single('profilepicture'),updateProfile)
+.use(express.static('static'))
+.use(bodyParser.urlencoded({extended:true}))
+.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
+}))
+
+.get('/', start) // register and login
+.get('/home', users) // homepage with all the users
+
+.get('/myprofile', myprofile) //profile
+.post('/myprofile', uploadFile.single('profilepicture'), addprofile) // add a profile?
+
+.get('/myprofile/edit', editProfile) //edit profile form
+.post('/myprofile/:id', uploadFile.single('profilepicture'), updateProfile) //update profile
+
+.delete('/home/:id', remove) // dislike user
 .use(notFound)
 .listen(8000)
+
+
+function start(req, res){
+    res.render('start.ejs')
+}
+
+let dataProfile;
+
+
+function addprofile(req, res){
+    if(req.session.user){
+        res.redirect("/home")
+    } else {
+        dataProfile = {
+            img: req.file ? req.file.filename : null,
+            username:req.body.name,
+            age: req.body.age,
+            bio: req.body.bio,
+            interests: req.body.interests
+        };
+        console.log(dataProfile)
+        res.redirect("/home");
+    }
+}
+
 
 
 
 
 function users(req, res, next){
     // Find array in collection userdata and send that to list.ejs
-    db.collection('userdata').find().toArray(done)
+    db.collection('userdata').find({gender: "male"}).toArray(done)
 
     function done(err, data) {
         if (err){
             next(err)
         }else{
-            res.render('list.ejs', {data: data})
+            res.render('list.ejs', {data: data, user: req.session.user})
+            console.log(req.session.user)
         }
     }
+
+    try{
+        req.session.user = dataProfile
+        console.log(dataProfile)
+        db.collection('userdata').insertOne(req.session.user, registerUser);
+
+        function registerUser(err, data) {
+            if (err) {
+                next(err);
+                console.log('yoooo')
+            } else {
+                req.session.user._id = data.insertedId;
+                console.log(req.session.user)
+                console.log('ewaaaaa')
+            }
+        }
+
+    }catch(e){
+        console.log('nooooopeeeeeeee')
+        console.log(e);
+        res.status(400).send(e)
+    }
+
 }
 
+
+
+
+
 // Class mate helped me to write this function
-function remove(req, res, next){
+function remove(req, res){
     // Get ID of a user
     const itemID = req.params.id;
 
@@ -82,45 +146,59 @@ function remove(req, res, next){
 
 
 
-
 function myprofile(req, res, next){
-    db.collection('main').find().toArray(done)
+    db.collection('userdata').findOne({_id: mongo.ObjectId(req.session.user._id) }, done);
+    console.log(req.session.user._id)
 
+    
     function done(err, data) {
         if (err){
             next(err)
         }else{
             res.render('myprofile.ejs', {data: data})
+            console.log(data)
+            console.log('this is' + req.session.user._id)
         }
     }
+
+
 }
 
 
-function updateProfile(req, res, next) {
-    try{
+
+
+function updateProfile(req, res) {
+
         //https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
-        db.collection('main').updateOne({"_id": ObjectId("5ed56404252bf51450273018")}, 
+        db.collection('userdata').updateOne({
+            _id: ObjectId(req.session.user._id) }, 
         {$set: //To update the values of the form
             {
             img: req.file ? req.file.filename : null,
             username:req.body.name,
             age: req.body.age,
             bio: req.body.bio,
+            interests: req.body.interests
             }
-        })   
-        console.log('updated'),
-        res.redirect('/myprofile'),
-        res.status(200).send('updated')
-    } catch(e){
-        console.log('failed to update')
-        console.log(e);
-        res.status(400).send(e)
-    }
+        }, done)  ;
+        // console.log('updated'),
+        
+        // res.status(200).send('updated')
+  
+        function done(err){
+            if(err){
+                next(err);
+            }else{
+                res.redirect('/myprofile')
+            }
+        }
 }
 
 
+
 function editProfile(req, res){
-    res.render('editprofile.ejs')
+    res.render('editprofile')
+
 }
 
 function notFound(req, res){
