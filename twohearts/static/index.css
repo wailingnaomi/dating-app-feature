@@ -4,7 +4,10 @@
 
 }
 
-/* navigation */
+/*********************
+    NAVIGATION BAR
+**********************/
+
 ul{
     list-style-type: none;
     display: flex;
@@ -25,7 +28,9 @@ li{
 
 
 
-/* page title */
+/*****************
+    PAGE TITLE
+******************/
 h1{
     color: #484E5D;
     text-shadow: 2px 2px #CCD0D7;
@@ -34,7 +39,9 @@ h1{
     margin-bottom: 1em;
 }
 
-/* responsive with grid */
+/*********************
+    RESPONSIVE GRID
+**********************/
 #container{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
@@ -51,8 +58,26 @@ h1{
     padding: 24px;
 }
 
+/***************
+    SEARCHBAR
+****************/
+#search{
+    display: block;
+    margin: 0 auto 4em auto;
+    width: 50%;
+    height: 4em;
+    padding: 10px;
+    border-radius: 3rem;
+    border-color: #484E5D;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 2px 2px #CCD0D7;
+    ;
+}
 
-/* profiles styles */
+/********************
+    USERS STYLING
+*********************/
 .profileIMG{
     display: block;
     max-width: 100%;
@@ -117,7 +142,9 @@ h1{
 }
 
 
-/* myprofile css */
+/*********************
+    PROFILE STYLING
+**********************/
 .profileContainer{
     border-radius: 5%;
     background-color: #CCD0D7;
@@ -138,7 +165,7 @@ h1{
     width: 360px;
 }
 
-.editBTN{
+.editBTN, .deleteBTN{
     width: 100%;
     background: #484E5D;
     color: #fff;
@@ -146,14 +173,16 @@ h1{
     margin-top: 2em;
 }
 
-.edit{
+.edit, .delete{
     text-align: center;
     text-decoration: none;
     color: #fff;
 }
 
 
-/* editprofile css */
+/***********************
+    EDIT FORM STYLING
+************************/
 .formContainer{
     display: flex;
     justify-content: center;

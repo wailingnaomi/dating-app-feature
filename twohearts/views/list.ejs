@@ -5,6 +5,11 @@
 <%- include ('partials/nav.ejs') -%>
 
 <h1>Find your match.</h1>
+
+<form id="searchInterests">
+    <input type="text" name="term" placeholder="Search interests ..." id="search">
+  </form>
+
 <div id="container">
 
     <% for (var userInfo = 0; userInfo < data.length; userInfo++) { %>
@@ -19,11 +24,8 @@
 
         <p class="bio"> <%= data[userInfo].bio %> </p>
 
+        <p class="interests"><%= data[userInfo].interests %></p>
     
-            <p class="interests"><%= data[userInfo].interests %></p>
-    
-
-
         <div class="likeDislike">
 
             <button class="likeDislikeBTN">
