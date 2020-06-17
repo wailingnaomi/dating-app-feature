@@ -6,12 +6,10 @@ Dit project gaat over een dating feature. Wanneer ik inlog en op zoek ben naar e
 
 ## Features
 Op dit moment:
+* Profiel aanmaken en gelijk inloggen
 * User disliken
-* Profiel editen en updaten 
-
-Wat ik nog wil doen:
-* Zoeken in een zoekbalk naar interesse tags
-* Werken met sessions
+* Zoeken naar interesse in een zoekbalk
+* Profiel editen, updaten en deleten
 
 ## NPM
 ### Depencies:
