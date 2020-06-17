@@ -63,7 +63,9 @@ app
 
 
 function start(req, res) {
-    res.render('start.ejs')
+
+        res.render('start.ejs')
+
 }
 
 
@@ -161,6 +163,7 @@ api.get('/search:term', (req, res) => {
 
     // Find users with the filled in value
     db.collection("userdata").find({
+        gender: "male",
         interests: req.params.term.replace(":", "")
     }).toArray(done);
 
