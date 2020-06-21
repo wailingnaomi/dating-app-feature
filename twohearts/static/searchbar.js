@@ -6,13 +6,13 @@ console.log(list)
 const searchBar = document.forms['searchInterests'].querySelector('input');
 const container = document.getElementById('container');
 
-searchBar.addEventListener('keyup', function(e){
+searchBar.addEventListener('keyup', function (e) {
   e.preventDefault();
   const term = e.target.value.toLowerCase();
   console.log(term);
 
-  var div = document.getElementsByClassName('.user');
-  var interests = document.getElementsByClassName('.interests');
+  var div = document.getElementsByClassName('user');
+  var interests = document.getElementsByClassName('interests');
 
   const url = `http://localhost:8000/search:${term}`
 
@@ -61,10 +61,9 @@ searchBar.addEventListener('keyup', function(e){
     console.log(data);
   })
 
-  Array.from(interests).forEach(function(interest){
+  Array.from(interests).forEach(function (interest) {
     console.log(interest)
 
   })
 
 })
-

@@ -64,7 +64,7 @@ app
 
 function start(req, res) {
 
-        res.render('start.ejs')
+    res.render('start.ejs')
 
 }
 
