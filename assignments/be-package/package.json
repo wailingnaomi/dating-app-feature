@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cuteid": "^0.2.0",
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "nodemon": "^2.0.4",
     "npm": "^6.14.5",
     "one-liner-joke": "^1.2.0"
